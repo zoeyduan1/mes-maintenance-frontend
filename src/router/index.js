@@ -7,6 +7,7 @@ import {
 import Layout from '@/layout/index.vue'
 import nested from './modules/nested'
 import customComponents from './modules/customComponents'
+import LocationSplitView from '@/components/VendorsLocations/LocationSplitView.vue'
 
 // 配置路由信息
 export const constantRoutes = [
@@ -315,6 +316,11 @@ export const asyncRoutes = [
         meta : { title : 'VUE3' }
       }
     ]
+  },
+  {
+    path : '/locations',
+    name : 'Locations',
+    component : LocationSplitView
   },
 
   {
