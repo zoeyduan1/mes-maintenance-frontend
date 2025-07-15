@@ -13,9 +13,9 @@
         />
       </div>
     </template>
-<!--    <template v-else>-->
-<!--      <div class="text-gray-400 text-sm text-center py-6">No image available</div>-->
-<!--    </template>-->
+    <!--    <template v-else>-->
+    <!--      <div class="text-gray-400 text-sm text-center py-6">No image available</div>-->
+    <!--    </template>-->
   </div>
 </template>
 

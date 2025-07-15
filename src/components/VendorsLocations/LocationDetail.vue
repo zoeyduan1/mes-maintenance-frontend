@@ -7,8 +7,9 @@
       <p><strong>Location Type:</strong> {{ location.location_type.name }}</p>
       <p><strong>Location Type:</strong> {{ location.person_in_charge_id }}</p>
       <p><strong>Description:</strong> {{ location.description || '--' }}</p>
-      <p><strong>Images:</strong></p>
-      <Images :images="location.image_path" /></div>
+      <p v-if="location?.image_path?.length"><strong>Images:</strong></p>
+      <Images :images="location.image_path" />
+    </div>
   </div>
 </template>
 
