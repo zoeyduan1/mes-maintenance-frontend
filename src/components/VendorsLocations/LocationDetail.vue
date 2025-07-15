@@ -1,62 +1,65 @@
 <template>
   <el-card class="mb-4" v-if="location">
-    <div class="el-card__header">
-      <span class="el-card__title">Location Overview</span>
-      <el-button type="primary" icon="el-icon-edit" size="small" @click="editLocation = true"> Edit </el-button>
+    <template #header>
+      <div class="el-card__header">
+        <span class="el-card__title">{{ location.name }}</span>
+        <div class="button-group">
+          <el-button type="primary" :icon="Edit" circle @click="editLocation = true" />
+          <el-button type="danger" :icon="Delete" circle />
+        </div>
+      </div>
+    </template>
+
+    <div class="descriptions-container">
+      <el-descriptions
+          title="Overview"
+          :column="2"
+          direction="vertical"
+      >
+        <el-descriptions-item label="Name">{{ location.name }}</el-descriptions-item>
+        <el-descriptions-item label="Code">{{ location.code }}</el-descriptions-item>
+        <el-descriptions-item label="Location Type">{{ location.location_type?.name }}</el-descriptions-item>
+        <el-descriptions-item label="Person in Charge">{{ location.person_in_charge_id }}</el-descriptions-item>
+        <el-descriptions-item label="Address">{{ location.address }}</el-descriptions-item>
+      </el-descriptions>
+
+      <el-descriptions
+          v-if="location.description"
+          :column="1"
+          direction="vertical"
+          :style="blockMargin"
+      >
+        <el-descriptions-item label="Description">{{ location.description }}</el-descriptions-item>
+      </el-descriptions>
+
+      <div v-if="location?.image_path?.length">
+        <el-descriptions title="Images"></el-descriptions>
+        <Images :images="location.image_path" />
+      </div>
     </div>
-    <el-row :gutter="20">
-      <el-col :span="12">
-        <div class="label">Name</div>
-        <div class="value">{{ location.name }}</div>
-      </el-col>
-      <el-col :span="12">
-        <div class="label">Code</div>
-        <div class="value">{{ location.code }}</div>
-      </el-col>
-      <el-col :span="12">
-        <div class="label">Address</div>
-        <div class="value">{{ location.address }}</div>
-      </el-col>
-      <el-col :span="12">
-        <div class="label">Location Type</div>
-        <div class="value">{{ location.location_type?.name }}</div>
-      </el-col>
-      <el-col :span="12">
-        <div class="label">Person in Charge</div>
-        <div class="value">{{ location.person_in_charge_id }}</div>
-      </el-col>
-      <el-col :span="24">
-        <div class="label">Description</div>
-        <div class="value">{{ location.description || '--' }}</div>
-      </el-col>
-    </el-row>
-    <el-divider v-if="location?.image_path?.length">Images</el-divider>
-    <Images v-if="location?.image_path?.length" :images="location.image_path" />
   </el-card>
 </template>
 
 <script setup>
 import { ref } from 'vue'
+import {
+  ElCard,
+  ElDescriptions,
+  ElDescriptionsItem,
+  ElButton
+} from 'element-plus'
+import { Edit, Delete } from '@element-plus/icons-vue'
 import Images from './Images.vue'
+
 defineProps( {
   location : Object
 } )
 
 const editLocation = ref( false )
+const blockMargin = 'margin-bottom: 32px'
 </script>
 
 <style scoped>
-.label {
-  font-size: 12px;
-  color: #999;
-  margin-bottom: 4px;
-}
-.value {
-  font-size: 14px;
-  font-weight: 500;
-  color: #333;
-  margin-bottom: 16px;
-}
 .el-card__header {
   display: flex;
   justify-content: space-between;
@@ -66,4 +69,14 @@ const editLocation = ref( false )
   font-size: 18px;
   font-weight: bold;
 }
+.button-group {
+  display: flex;
+  gap: 8px;
+}
+.descriptions-container {
+  max-width: 800px;
+  width: 100%;
+  margin-left: 0;
+}
+
 </style>
