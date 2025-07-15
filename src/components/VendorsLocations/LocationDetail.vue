@@ -33,9 +33,9 @@
 
 <script setup>
 import Images from './Images.vue'
-defineProps({
-  location: Object,
-})
+defineProps( {
+  location : Object
+} )
 </script>
 
 <style scoped>
