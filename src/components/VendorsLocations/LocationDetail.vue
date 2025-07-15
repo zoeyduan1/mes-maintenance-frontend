@@ -11,11 +11,7 @@
     </template>
 
     <div class="descriptions-container">
-      <el-descriptions
-          title="Overview"
-          :column="2"
-          direction="vertical"
-      >
+      <el-descriptions title="Overview" :column="2" direction="vertical">
         <el-descriptions-item label="Name">{{ location.name }}</el-descriptions-item>
         <el-descriptions-item label="Code">{{ location.code }}</el-descriptions-item>
         <el-descriptions-item label="Location Type">{{ location.location_type?.name }}</el-descriptions-item>
@@ -23,12 +19,7 @@
         <el-descriptions-item label="Address">{{ location.address }}</el-descriptions-item>
       </el-descriptions>
 
-      <el-descriptions
-          v-if="location.description"
-          :column="1"
-          direction="vertical"
-          :style="blockMargin"
-      >
+      <el-descriptions v-if="location.description" :column="1" direction="vertical" :style="blockMargin">
         <el-descriptions-item label="Description">{{ location.description }}</el-descriptions-item>
       </el-descriptions>
 
@@ -42,12 +33,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import {
-  ElCard,
-  ElDescriptions,
-  ElDescriptionsItem,
-  ElButton
-} from 'element-plus'
+import { ElCard, ElDescriptions, ElDescriptionsItem, ElButton } from 'element-plus'
 import { Edit, Delete } from '@element-plus/icons-vue'
 import Images from './Images.vue'
 
@@ -78,5 +64,4 @@ const blockMargin = 'margin-bottom: 32px'
   width: 100%;
   margin-left: 0;
 }
-
 </style>
