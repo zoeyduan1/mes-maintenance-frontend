@@ -27,19 +27,44 @@
         <el-descriptions title="Images"></el-descriptions>
         <Images :images="location.image_path" />
       </div>
+      <div v-if="equipmentList?.length">
+        <el-descriptions title="Related Equipment"></el-descriptions>
+        <SearchTable :equipmentList="equipmentList" />
+      </div>
     </div>
   </el-card>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { ElCard, ElDescriptions, ElDescriptionsItem, ElButton } from 'element-plus'
+import { ref, watch } from 'vue'
+import axios from 'axios'
+import SearchTable from '@/components/VendorsLocations/SearchTable.vue'
 import { Edit, Delete } from '@element-plus/icons-vue'
 import Images from './Images.vue'
 
-defineProps( {
+const props = defineProps( {
   location : Object
 } )
+
+const equipmentList = ref( [] )
+
+const fetchEquipment = async( id ) => {
+  try {
+    const res = await axios.get( `http://10.10.12.12:8085/location/correlative-equipment/${id}` )
+    equipmentList.value = res.data?.data || []
+  } catch ( err ) {
+    console.error( 'Failed to fetch equipment:', err )
+    equipmentList.value = []
+  }
+}
+
+watch(
+  () => props.location?.id,
+  ( id ) => {
+    if ( id ) fetchEquipment( id )
+  },
+  { immediate : true }
+)
 
 const editLocation = ref( false )
 const blockMargin = 'margin-bottom: 32px'
