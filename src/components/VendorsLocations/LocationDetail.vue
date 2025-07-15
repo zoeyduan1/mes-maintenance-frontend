@@ -48,7 +48,7 @@ const props = defineProps( {
 
 const equipmentList = ref( [] )
 
-const fetchEquipment = async( id ) => {
+const fetchEquipment = async id => {
   try {
     const res = await axios.get( `http://10.10.12.12:8085/location/correlative-equipment/${id}` )
     equipmentList.value = res.data?.data || []
@@ -60,7 +60,7 @@ const fetchEquipment = async( id ) => {
 
 watch(
   () => props.location?.id,
-  ( id ) => {
+  id => {
     if ( id ) fetchEquipment( id )
   },
   { immediate : true }
