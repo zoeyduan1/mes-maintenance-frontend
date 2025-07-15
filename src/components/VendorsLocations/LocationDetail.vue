@@ -38,11 +38,11 @@
 <script setup>
 import { ref } from 'vue'
 import Images from './Images.vue'
-defineProps({
-  location: Object,
-})
+defineProps( {
+  location : Object
+} )
 
-const editLocation = ref(false)
+const editLocation = ref( false )
 </script>
 
 <style scoped>
