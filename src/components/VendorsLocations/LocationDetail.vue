@@ -2,9 +2,7 @@
   <el-card class="mb-4" v-if="location">
     <div class="el-card__header">
       <span class="el-card__title">Location Overview</span>
-      <el-button type="primary" icon="el-icon-edit" size="small" @click="editLocation = true">
-        Edit
-      </el-button>
+      <el-button type="primary" icon="el-icon-edit" size="small" @click="editLocation = true"> Edit </el-button>
     </div>
     <el-row :gutter="20">
       <el-col :span="12">
@@ -40,11 +38,11 @@
 <script setup>
 import { ref } from 'vue'
 import Images from './Images.vue'
-defineProps( {
-  location : Object
-} )
+defineProps({
+  location: Object,
+})
 
-const editLocation = ref( false )
+const editLocation = ref(false)
 </script>
 
 <style scoped>
