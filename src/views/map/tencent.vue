@@ -25,24 +25,24 @@ import YuLayout from '@/components/YuLayout'
 const container = ref()
 const ak = 'VBIBZ-VEA6U-RRXVP-4MSZS-WDNAS-YDFXM'
 
-onMounted( () => {
-  nextTick( () => {
-    tencentMap( ak )
-      .then( () => {
-        const center = new TMap.LatLng( 39.984104, 116.307503 )
+onMounted(() => {
+  nextTick(() => {
+    tencentMap(ak)
+      .then(() => {
+        const center = new TMap.LatLng(39.984104, 116.307503)
         // eslint-disable-next-line no-new
-        new TMap.Map( container.value, {
-          rotation : 20,
-          pitch : 30,
-          zoom : 12,
-          center
-        } )
-      } )
-      .catch( err => {
-        console.log( 'err', err )
-      } )
-  } )
-} )
+        new TMap.Map(container.value, {
+          rotation: 20,
+          pitch: 30,
+          zoom: 12,
+          center,
+        })
+      })
+      .catch(err => {
+        console.log('err', err)
+      })
+  })
+})
 </script>
 
 <style lang="scss" scoped>

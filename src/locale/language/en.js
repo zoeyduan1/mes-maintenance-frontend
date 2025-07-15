@@ -1,5 +1,5 @@
 export default {
-  header : {
-    home : 'Home'
-  }
+  header: {
+    home: 'Home',
+  },
 }

@@ -5,16 +5,16 @@
  * @param {string} utcDateString - The UTC date string to convert.
  * @returns {string} The formatted local time string.
  */
-export function convertToLocalTime( utcDateString ) {
-  const date = new Date( utcDateString )
+export function convertToLocalTime(utcDateString) {
+  const date = new Date(utcDateString)
 
   // Extract year, month, day, hour, minute, second
   const year = date.getFullYear()
-  const month = String( date.getMonth() + 1 ).padStart( 2, '0' )
-  const day = String( date.getDate() ).padStart( 2, '0' )
-  const hour = String( date.getHours() ).padStart( 2, '0' )
-  const minute = String( date.getMinutes() ).padStart( 2, '0' )
-  const second = String( date.getSeconds() ).padStart( 2, '0' )
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+  const hour = String(date.getHours()).padStart(2, '0')
+  const minute = String(date.getMinutes()).padStart(2, '0')
+  const second = String(date.getSeconds()).padStart(2, '0')
 
   // Return formatted date string
   return `${year}-${month}-${day} ${hour}:${minute}:${second}`
@@ -29,8 +29,8 @@ export function getTimeZone() {
 }
 
 // datetime picker to utc
-export function convertToUTC( localDateString ) {
-  const date = new Date( localDateString )
+export function convertToUTC(localDateString) {
+  const date = new Date(localDateString)
   const utcDateString = date.toISOString()
   return utcDateString
 }

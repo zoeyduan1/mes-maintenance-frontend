@@ -49,30 +49,30 @@ const editorRef = shallowRef()
 const mode = 'simple' // default
 
 // 初始内容 HTML
-const valueHtml = ref( '<p>我乃万人迷石榴姐</p>' )
+const valueHtml = ref('<p>我乃万人迷石榴姐</p>')
 
 // 模拟 ajax 异步获取内容
-onMounted( () => {
-  setTimeout( () => {
+onMounted(() => {
+  setTimeout(() => {
     valueHtml.value = '<p>我乃华府小书童：华安</p>'
-  }, 1500 )
-} )
+  }, 1500)
+})
 
 const toolbarConfig = {}
-const editorConfig = { placeholder : '9527，你就没什么想对秋香说的吗？' }
+const editorConfig = { placeholder: '9527，你就没什么想对秋香说的吗？' }
 
 // 组件销毁时，也及时销毁编辑器
-onBeforeUnmount( () => {
+onBeforeUnmount(() => {
   const editor = editorRef.value
-  if ( editor == null ) return
+  if (editor == null) return
   editor.destroy()
-} )
+})
 
 const handleCreated = editor => {
   editorRef.value = editor // 记录 editor 实例，重要！
 }
 
-defineOptions( {
-  name : 'Wangeditor'
-} )
+defineOptions({
+  name: 'Wangeditor',
+})
 </script>

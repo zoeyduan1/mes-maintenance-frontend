@@ -7,7 +7,7 @@ const BASE_URL = '/api/common'
  * @returns {Promise} API response with work types.
  */
 export const getAllWorkTypes = () => {
-  return api.get( `${BASE_URL}/work-type` )
+  return api.get(`${BASE_URL}/work-type`)
 }
 
 /**
@@ -15,7 +15,7 @@ export const getAllWorkTypes = () => {
  * @returns {Promise} API response with states.
  */
 export const getAllStates = () => {
-  return api.get( `${BASE_URL}/state` )
+  return api.get(`${BASE_URL}/state`)
 }
 
 /**
@@ -23,7 +23,7 @@ export const getAllStates = () => {
  * @returns {Promise} API response with recurrence types.
  */
 export const getAllRecurrenceTypes = () => {
-  return api.get( `${BASE_URL}/recurrence-type` )
+  return api.get(`${BASE_URL}/recurrence-type`)
 }
 
 /**
@@ -31,7 +31,7 @@ export const getAllRecurrenceTypes = () => {
  * @returns {Promise} API response with priorities.
  */
 export const getAllPriorities = () => {
-  return api.get( `${BASE_URL}/priority` )
+  return api.get(`${BASE_URL}/priority`)
 }
 
 /**
@@ -39,5 +39,5 @@ export const getAllPriorities = () => {
  * @returns {Promise} API response with categories.
  */
 export const getAllCategories = () => {
-  return api.get( `${BASE_URL}/category` )
+  return api.get(`${BASE_URL}/category`)
 }

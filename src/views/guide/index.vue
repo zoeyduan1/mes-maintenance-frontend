@@ -2,10 +2,7 @@
   <YuLayout title="新手引导">
     <template #head>
       引导页对于一些第一次进入项目的人很有用，你可以简单介绍下项目的功能特点。该平台是基于
-      <el-link type="primary"
-href="https://github.com/kamranahmedse/driver.js"
-target="_blank"
-:underline="false"
+      <el-link type="primary" href="https://github.com/kamranahmedse/driver.js" target="_blank" :underline="false"
         >driver.js</el-link
       >
     </template>
@@ -27,22 +24,22 @@ import YuLayout from '@/components/YuLayout'
 
 const driver = ref()
 
-onMounted( () => {
+onMounted(() => {
   driver.value = new Driver()
 
   // driver.value.highlight('#test1')
-} )
+})
 
 const guide = () => {
-  if ( driver.value ) {
-    driver.value.defineSteps( steps )
+  if (driver.value) {
+    driver.value.defineSteps(steps)
     driver.value.start()
   }
 }
 
-defineOptions( {
-  name : 'Guide'
-} )
+defineOptions({
+  name: 'Guide',
+})
 </script>
 
 <style>

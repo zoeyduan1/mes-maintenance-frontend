@@ -25,57 +25,57 @@ import YuLayout from '@/components/YuLayout'
 const container = ref()
 const ak = '5dc1bd09758a3d8eaafa4a8e5800e29c'
 const options = {
-  key : ak,
-  version : '2.0',
-  plugins : ['AMap.MarkerCluster'],
-  AMapUI : {
-    version : '1.1',
-    plugins : []
+  key: ak,
+  version: '2.0',
+  plugins: ['AMap.MarkerCluster'],
+  AMapUI: {
+    version: '1.1',
+    plugins: [],
   },
-  Loca : {
-    version : '2.0.0'
-  }
+  Loca: {
+    version: '2.0.0',
+  },
 }
 const addMark = async map => {
   // eslint-disable-next-line no-undef
-  const marker = new AMap.Marker( {
+  const marker = new AMap.Marker({
     // eslint-disable-next-line no-undef
-    position : new AMap.LngLat( 116.39, 39.9 ),
-    title : '北京'
-  } )
-  map.add( marker )
+    position: new AMap.LngLat(116.39, 39.9),
+    title: '北京',
+  })
+  map.add(marker)
 }
 
 // 添加自定义标记
 const customMark = async map => {
   // eslint-disable-next-line no-undef
-  const marker = new AMap.Marker( {
+  const marker = new AMap.Marker({
     // eslint-disable-next-line no-undef
-    position : new AMap.LngLat( 116.39, 39.9 ),
+    position: new AMap.LngLat(116.39, 39.9),
     // eslint-disable-next-line no-undef
-    offset : new AMap.Pixel( -10, -10 ),
-    icon : '//vdata.amap.com/icons/b18/1/2.png',
-    title : '北京'
-  } )
-  map.add( marker )
+    offset: new AMap.Pixel(-10, -10),
+    icon: '//vdata.amap.com/icons/b18/1/2.png',
+    title: '北京',
+  })
+  map.add(marker)
 }
 
-onMounted( () => {
-  AMapLoader.load( options )
-    .then( async AMap => {
-      const map = new AMap.Map( container.value, {
-        zoom : 12,
-        center : [116.397428, 39.90923],
-        pitch : 0,
-        viewMode : '3D'
-      } )
-      await addMark( map )
-      await customMark( map )
-    } )
-    .catch( e => {
-      console.log( e )
-    } )
-} )
+onMounted(() => {
+  AMapLoader.load(options)
+    .then(async AMap => {
+      const map = new AMap.Map(container.value, {
+        zoom: 12,
+        center: [116.397428, 39.90923],
+        pitch: 0,
+        viewMode: '3D',
+      })
+      await addMark(map)
+      await customMark(map)
+    })
+    .catch(e => {
+      console.log(e)
+    })
+})
 </script>
 
 <style lang="scss" scoped>

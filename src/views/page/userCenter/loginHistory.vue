@@ -29,75 +29,75 @@ import { ref } from 'vue'
 import { loginHistory } from '@/api/user'
 import LoginHistory from './components/infoLayout'
 
-const loading = ref( false )
+const loading = ref(false)
 
 const LoginMethod = {
-  0 : '未知',
-  1 : '密码登录',
-  2 : '验证码登录',
-  3 : '第三方登录'
+  0: '未知',
+  1: '密码登录',
+  2: '验证码登录',
+  3: '第三方登录',
 }
 
-const columns = ref( [
+const columns = ref([
   {
-    key : 'method',
-    title : '登录方式',
-    dataKey : 'method',
-    align : 'center',
-    width : 106,
-    cellRenderer : ( { rowData } ) => {
+    key: 'method',
+    title: '登录方式',
+    dataKey: 'method',
+    align: 'center',
+    width: 106,
+    cellRenderer: ({ rowData }) => {
       return <div>{LoginMethod[rowData.method]}</div>
-    }
+    },
   },
   {
-    key : 'deviceType',
-    title : '设备名称',
-    dataKey : 'deviceType',
-    align : 'center',
-    width : 231
+    key: 'deviceType',
+    title: '设备名称',
+    dataKey: 'deviceType',
+    align: 'center',
+    width: 231,
   },
   {
-    key : 'deviceOs',
-    title : '系统',
-    dataKey : 'deviceOs',
-    align : 'center',
-    width : 110
+    key: 'deviceOs',
+    title: '系统',
+    dataKey: 'deviceOs',
+    align: 'center',
+    width: 110,
   },
   {
-    key : 'loginAddr',
-    title : '登录地点',
-    dataKey : 'loginAddr',
-    align : 'center',
-    width : 231
+    key: 'loginAddr',
+    title: '登录地点',
+    dataKey: 'loginAddr',
+    align: 'center',
+    width: 231,
   },
   {
-    key : 'loginTime',
-    title : '最后登录时间',
-    dataKey : 'loginTime',
-    align : 'center',
-    width : 231
-  }
-] )
-const tableData = ref( [] )
+    key: 'loginTime',
+    title: '最后登录时间',
+    dataKey: 'loginTime',
+    align: 'center',
+    width: 231,
+  },
+])
+const tableData = ref([])
 
-const getHistory = async() => {
+const getHistory = async () => {
   loading.value = true
   try {
     // 模拟了10w条数据，使用element 虚拟表格渲染
     const { code, data } = await loginHistory()
-    if ( code == 200 ) {
+    if (code == 200) {
       tableData.value = data
     }
-  } catch ( e ) {
+  } catch (e) {
   } finally {
     loading.value = false
   }
 }
 getHistory()
 
-defineOptions( {
-  name : 'LoginHistory'
-} )
+defineOptions({
+  name: 'LoginHistory',
+})
 </script>
 
 <style lang="scss" scoped>

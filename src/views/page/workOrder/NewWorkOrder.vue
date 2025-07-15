@@ -153,7 +153,7 @@ import { getTimeZone } from '@/utils/datetime'
 import { createWorkOrder } from '@/api/workOrder'
 
 export default {
-  components : { RecurrenceEditor, UploadEditor },
+  components: { RecurrenceEditor, UploadEditor },
   setup() {
     const commonDataStore = useCommonDataStore()
 
@@ -164,52 +164,52 @@ export default {
     commonDataStore.fetchProductionLines()
 
     return {
-      commonDataStore
+      commonDataStore,
     }
   },
   data() {
     return {
-      widthControl : '500px',
-      form : {
-        name : '',
-        description : '',
-        estimated_minutes : 30,
-        production_line_id : null,
-        equipment_group_id : null,
-        equipment_id : null,
-        component_id : null,
-        priority_id : null,
-        category_id : null,
-        work_type_id : null,
-        state_id : 1,
-        halt_type : 0,
-        time_zone : getTimeZone(),
-        created_by : 37,
-        recurrence_type : null,
-        image_list : [],
-        files_list : [],
-        recurrence_setting : {}
+      widthControl: '500px',
+      form: {
+        name: '',
+        description: '',
+        estimated_minutes: 30,
+        production_line_id: null,
+        equipment_group_id: null,
+        equipment_id: null,
+        component_id: null,
+        priority_id: null,
+        category_id: null,
+        work_type_id: null,
+        state_id: 1,
+        halt_type: 0,
+        time_zone: getTimeZone(),
+        created_by: 37,
+        recurrence_type: null,
+        image_list: [],
+        files_list: [],
+        recurrence_setting: {},
       },
-      equipmentGroups : [],
-      equipments : [],
-      components : [],
-      rules : {
-        name : [{ required : true, message : '请输入工单名称', trigger : 'blur' }],
-        halt_type : [{ required : true, message : '请选择是否停机', trigger : 'change' }],
-        production_line_id : [{ required : true, message : '请选择生产线', trigger : 'change' }],
-        priority_id : [{ required : true, message : '请选择优先级', trigger : 'change' }],
-        category_id : [{ required : true, message : '请选择工单类别', trigger : 'change' }],
-        work_type_id : [{ required : true, message : '请选择工作类型', trigger : 'change' }],
-        recurrence_type : [{ required : true, message : '请选择重复设置', trigger : 'change' }],
-        'recurrence_setting.start_date_time' : [{ required : true, message : '请选择开始时间', trigger : 'change' }],
-        'recurrence_setting.end_date_time' : [{ required : true, message : '请选择结束时间', trigger : 'change' }]
-      }
+      equipmentGroups: [],
+      equipments: [],
+      components: [],
+      rules: {
+        name: [{ required: true, message: '请输入工单名称', trigger: 'blur' }],
+        halt_type: [{ required: true, message: '请选择是否停机', trigger: 'change' }],
+        production_line_id: [{ required: true, message: '请选择生产线', trigger: 'change' }],
+        priority_id: [{ required: true, message: '请选择优先级', trigger: 'change' }],
+        category_id: [{ required: true, message: '请选择工单类别', trigger: 'change' }],
+        work_type_id: [{ required: true, message: '请选择工作类型', trigger: 'change' }],
+        recurrence_type: [{ required: true, message: '请选择重复设置', trigger: 'change' }],
+        'recurrence_setting.start_date_time': [{ required: true, message: '请选择开始时间', trigger: 'change' }],
+        'recurrence_setting.end_date_time': [{ required: true, message: '请选择结束时间', trigger: 'change' }],
+      },
     }
   },
   mounted() {},
-  methods : {
+  methods: {
     async fetchEquipmentGroups() {
-      const { data } = await getEquipmentGroups( this.form.production_line_id )
+      const { data } = await getEquipmentGroups(this.form.production_line_id)
       this.equipmentGroups = data.data
     },
 
@@ -220,12 +220,12 @@ export default {
     // },
 
     async fetchEquipments() {
-      const { data } = await getEquipments( this.form.equipment_group_id )
+      const { data } = await getEquipments(this.form.equipment_group_id)
       this.equipments = data.data
     },
 
     async fetchComponents() {
-      const { data } = await getEquipmentComponents( this.form.equipment_id )
+      const { data } = await getEquipmentComponents(this.form.equipment_id)
       this.components = data.data
     },
 
@@ -235,82 +235,82 @@ export default {
         let uploadedFiles = []
 
         // 如果存在图片才上传
-        if ( this.form.image_list.length > 0 ) {
-          const imageRes = await uploadMultipleToMinio( this.form.image_list )
+        if (this.form.image_list.length > 0) {
+          const imageRes = await uploadMultipleToMinio(this.form.image_list)
           uploadedImages = imageRes.data.uploadedFiles || []
-          console.log( '🖼 上传图片成功:', uploadedImages )
-          this.form.image_list = uploadedImages.map( file => file.url )
+          console.log('🖼 上传图片成功:', uploadedImages)
+          this.form.image_list = uploadedImages.map(file => file.url)
         }
 
         // 如果存在文件才上传
-        if ( this.form.files_list.length > 0 ) {
-          const fileRes = await uploadMultipleToMinio( this.form.files_list )
+        if (this.form.files_list.length > 0) {
+          const fileRes = await uploadMultipleToMinio(this.form.files_list)
           uploadedFiles = fileRes.data.uploadedFiles || []
-          console.log( '📄 上传文件成功:', uploadedFiles )
-          this.form.files_list = uploadedFiles.map( file => file.url )
+          console.log('📄 上传文件成功:', uploadedFiles)
+          this.form.files_list = uploadedFiles.map(file => file.url)
         }
 
-        console.log( '✅ 当前上传后的图片列表:', this.form.image_list )
-        console.log( '✅ 当前上传后的文件列表:', this.form.files_list )
-        this.$message.success( '文件上传成功！' )
-      } catch ( err ) {
-        console.error( '❌ 文件上传失败:', err )
-        this.$message.error( '文件上传失败' )
+        console.log('✅ 当前上传后的图片列表:', this.form.image_list)
+        console.log('✅ 当前上传后的文件列表:', this.form.files_list)
+        this.$message.success('文件上传成功！')
+      } catch (err) {
+        console.error('❌ 文件上传失败:', err)
+        this.$message.error('文件上传失败')
       }
     },
 
     async submitForm() {
-      this.$refs.formRef.validate( async valid => {
-        if ( !valid ) return
+      this.$refs.formRef.validate(async valid => {
+        if (!valid) return
 
         // 先上传图片和文件
         await this.uploadFilesToServer()
 
         const payload = {
-          ...this.form
+          ...this.form,
         }
 
         try {
-          const { data } = await createWorkOrder( payload )
-          console.log( '✅ 工单创建成功:', data )
-          this.$message.success( '工单创建成功！' )
+          const { data } = await createWorkOrder(payload)
+          console.log('✅ 工单创建成功:', data)
+          this.$message.success('工单创建成功！')
 
           // Close current tab by navigating to another route
           const tagsViewStore = useTagsViewStore()
-          tagsViewStore.DEL_VIEW( this.$route )
-          this.$router.push( '/table/complex' )
-        } catch ( error ) {
-          console.error( '❌ 工单创建失败:', error )
-          this.$message.error( '工单创建失败' )
+          tagsViewStore.DEL_VIEW(this.$route)
+          this.$router.push('/table/complex')
+        } catch (error) {
+          console.error('❌ 工单创建失败:', error)
+          this.$message.error('工单创建失败')
         }
-      } )
-    }
+      })
+    },
   },
-  watch : {
-    'form.production_line_id'( val ) {
+  watch: {
+    'form.production_line_id'(val) {
       this.form.equipment_group_id = null
       this.form.equipment_id = null
       this.form.component_id = null
-      if ( val ) this.fetchEquipmentGroups()
+      if (val) this.fetchEquipmentGroups()
     },
-    'form.equipment_group_id'( val ) {
+    'form.equipment_group_id'(val) {
       this.form.equipment_id = null
       this.form.component_id = null
-      if ( val ) this.fetchEquipments()
+      if (val) this.fetchEquipments()
     },
-    'form.equipment_id'( val ) {
+    'form.equipment_id'(val) {
       this.form.component_id = null
-      if ( val ) this.fetchComponents()
+      if (val) this.fetchComponents()
     },
-    form : {
-      handler( val ) {
+    form: {
+      handler(val) {
         val.recurrence_type = val.recurrence_setting.recurrence_type
-        console.log( 'form changed:', val )
-        console.log( '📅 recurrence_setting changed:', val.recurrence_setting )
+        console.log('form changed:', val)
+        console.log('📅 recurrence_setting changed:', val.recurrence_setting)
       },
-      deep : true
-    }
-  }
+      deep: true,
+    },
+  },
 }
 </script>
 

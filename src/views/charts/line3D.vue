@@ -6,9 +6,9 @@
 
 <script setup>
 import Lines3D from './components/Lines3D'
-defineOptions( {
-  name : 'Lines3D'
-} )
+defineOptions({
+  name: 'Lines3D',
+})
 </script>
 
 <style scoped>

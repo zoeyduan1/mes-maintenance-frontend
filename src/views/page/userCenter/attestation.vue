@@ -59,78 +59,78 @@ import LoginHistory from './components/infoLayout'
 
 const ruleFormRef = ref()
 
-const isAttestation = ref( false )
+const isAttestation = ref(false)
 
-const ruleForm = reactive( {
-  name : '',
-  idNumber : ''
-} )
+const ruleForm = reactive({
+  name: '',
+  idNumber: '',
+})
 
 // 校验身份证号码
-const checkIdNumber = ( rule, value, callback ) => {
-  if ( value ) {
-    if ( validID( value ) ) {
+const checkIdNumber = (rule, value, callback) => {
+  if (value) {
+    if (validID(value)) {
       callback()
     } else {
-      callback( new Error( '您输入的身份证有误，请重新输入' ) )
+      callback(new Error('您输入的身份证有误，请重新输入'))
     }
   } else {
-    callback( new Error( '请输入身份证号' ) )
+    callback(new Error('请输入身份证号'))
   }
 }
 
 const rules = {
-  name : [
-    { required : false, message : '请输入姓名', trigger : ['blur', 'change'] },
+  name: [
+    { required: false, message: '请输入姓名', trigger: ['blur', 'change'] },
     {
-      required : false,
-      pattern : /^[\u4e00-\u9fa5]{2,5}$/,
-      message : '您输入的姓名有误，请重新输入',
-      trigger : ['blur', 'change']
-    }
+      required: false,
+      pattern: /^[\u4e00-\u9fa5]{2,5}$/,
+      message: '您输入的姓名有误，请重新输入',
+      trigger: ['blur', 'change'],
+    },
   ],
-  idNumber : [
-    { required : false, message : '请输入身份证号', trigger : 'blur' },
+  idNumber: [
+    { required: false, message: '请输入身份证号', trigger: 'blur' },
     {
-      required : false,
-      validator : checkIdNumber,
-      trigger : 'blur'
-    }
-  ]
+      required: false,
+      validator: checkIdNumber,
+      trigger: 'blur',
+    },
+  ],
 }
 
-const canSubmit = computed( () => {
+const canSubmit = computed(() => {
   return ruleForm.name && ruleForm.idNumber
-} )
+})
 
 const submit = async formEl => {
-  if ( !formEl ) return
-  ;( await formEl ) &&
-    formEl.validate( ( valid, fields ) => {
-      if ( valid ) {
-        ElMessage( {
-          message : '您已提交实名认证',
-          type : 'success'
-        } )
+  if (!formEl) return
+  ;(await formEl) &&
+    formEl.validate((valid, fields) => {
+      if (valid) {
+        ElMessage({
+          message: '您已提交实名认证',
+          type: 'success',
+        })
         isAttestation.value = true
       }
-    } )
+    })
 }
 
-const getHistory = async() => {
+const getHistory = async () => {
   try {
     // // 模拟了10w条数据，使用element 虚拟表格渲染
     // const { code, data } = await loginHistory()
     // if ( code == 200 ) {
     //   tableData.value = data
     // }
-  } catch ( e ) {}
+  } catch (e) {}
 }
 getHistory()
 
-defineOptions( {
-  name : 'Attestation'
-} )
+defineOptions({
+  name: 'Attestation',
+})
 </script>
 
 <style lang="scss" scoped>

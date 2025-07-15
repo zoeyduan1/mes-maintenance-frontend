@@ -5,9 +5,9 @@
 <script setup>
 // import { ref, onBeforeMount, onMounted, onUnmounted } from 'vue'
 
-defineOptions( {
-  name : 'Media'
-} )
+defineOptions({
+  name: 'Media',
+})
 </script>
 
 <style lang="scss" scoped>

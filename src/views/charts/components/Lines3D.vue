@@ -8,76 +8,76 @@ import 'echarts-gl'
 import { onMounted, shallowRef, onBeforeUnmount } from 'vue'
 import npmdep from '@/assets/charts/npmdep.json'
 
-const props = defineProps( {
-  className : {
-    type : String,
-    default : 'chart'
+const props = defineProps({
+  className: {
+    type: String,
+    default: 'chart',
   },
-  id : {
-    type : String,
-    default : 'chart'
+  id: {
+    type: String,
+    default: 'chart',
   },
-  width : {
-    type : String,
-    default : '200px'
+  width: {
+    type: String,
+    default: '200px',
   },
-  height : {
-    type : String,
-    default : '200px'
-  }
-} )
+  height: {
+    type: String,
+    default: '200px',
+  },
+})
 
-const chart = shallowRef( null )
+const chart = shallowRef(null)
 
-onMounted( () => {
+onMounted(() => {
   initChart()
-} )
+})
 
-onBeforeUnmount( () => {
-  if ( !chart.value ) {
+onBeforeUnmount(() => {
+  if (!chart.value) {
     return
   }
   chart.value.dispose()
   chart.value = null
-} )
+})
 const initChart = () => {
-  chart.value = echarts.init( document.getElementById( props.id ) )
+  chart.value = echarts.init(document.getElementById(props.id))
 
-  var nodes = npmdep.nodes.map( function( nodeName, idx ) {
+  var nodes = npmdep.nodes.map(function (nodeName, idx) {
     return {
-      name : nodeName,
-      value : npmdep.dependentsCount[idx]
+      name: nodeName,
+      value: npmdep.dependentsCount[idx],
     }
-  } )
+  })
   var edges = []
-  for ( let i = 0; i < npmdep.edges.length; ) {
+  for (let i = 0; i < npmdep.edges.length; ) {
     var s = npmdep.edges[i++]
     var t = npmdep.edges[i++]
-    edges.push( {
-      source : s,
-      target : t
-    } )
+    edges.push({
+      source: s,
+      target: t,
+    })
   }
-  nodes.forEach( function( node ) {
+  nodes.forEach(function (node) {
     // if (node.value > 100) {
     node.emphasis = {
-      label : {
-        show : true
-      }
+      label: {
+        show: true,
+      },
     }
     // }
-    if ( node.value > 5000 ) {
+    if (node.value > 5000) {
       node.label = {
-        show : true
+        show: true,
       }
     }
-  } )
+  })
 
-  chart.value.setOption( {
-    backgroundColor : '#000',
-    series : [
+  chart.value.setOption({
+    backgroundColor: '#000',
+    series: [
       {
-        color : [
+        color: [
           'rgb(203,239,15)',
           'rgb(73,15,239)',
           'rgb(15,217,239)',
@@ -107,57 +107,57 @@ const initChart = () => {
           'rgb(73,239,15)',
           'rgb(15,239,131)',
           'rgb(15,87,239)',
-          'rgb(239,15,231)'
+          'rgb(239,15,231)',
         ],
-        type : 'graphGL',
+        type: 'graphGL',
         nodes,
         edges,
-        modularity : {
-          resolution : 2,
-          sort : true
+        modularity: {
+          resolution: 2,
+          sort: true,
         },
-        lineStyle : {
-          color : 'rgba(255,255,255,1)',
-          opacity : 0.05
+        lineStyle: {
+          color: 'rgba(255,255,255,1)',
+          opacity: 0.05,
         },
-        itemStyle : {
-          opacity : 1
+        itemStyle: {
+          opacity: 1,
           // borderColor: '#fff',
           // borderWidth: 1
         },
-        focusNodeAdjacency : false,
-        focusNodeAdjacencyOn : 'click',
-        symbolSize : function( value ) {
-          return Math.sqrt( value / 10 )
+        focusNodeAdjacency: false,
+        focusNodeAdjacencyOn: 'click',
+        symbolSize: function (value) {
+          return Math.sqrt(value / 10)
         },
-        label : {
-          color : '#fff'
+        label: {
+          color: '#fff',
         },
-        emphasis : {
-          label : {
-            show : false
+        emphasis: {
+          label: {
+            show: false,
           },
-          lineStyle : {
-            opacity : 0.5,
-            width : 4
-          }
+          lineStyle: {
+            opacity: 0.5,
+            width: 4,
+          },
         },
-        forceAtlas2 : {
-          steps : 5,
-          stopThreshold : 20,
-          jitterTolerence : 10,
-          edgeWeight : [0.2, 1],
-          gravity : 5,
-          edgeWeightInfluence : 0
+        forceAtlas2: {
+          steps: 5,
+          stopThreshold: 20,
+          jitterTolerence: 10,
+          edgeWeight: [0.2, 1],
+          gravity: 5,
+          edgeWeightInfluence: 0,
           // preventOverlap: true
-        }
-      }
-    ]
-  } )
+        },
+      },
+    ],
+  })
 }
-defineOptions( {
-  name : 'Lines3D'
-} )
+defineOptions({
+  name: 'Lines3D',
+})
 </script>
 
 <style scoped lang="scss"></style>

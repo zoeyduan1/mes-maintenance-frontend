@@ -3,17 +3,17 @@ import { defineStore } from 'pinia'
 import { getAllPriorities, getAllWorkTypes, getAllCategories } from '@/api/common'
 import { getAllProductionLines } from '@/api/equipment'
 
-export const useCommonDataStore = defineStore( 'commonData', {
-  state : () => ( {
-    priorities : [],
-    workTypes : [],
-    categories : [],
-    productionLines : [],
-    equipmentGroups : [],
-    equipments : [],
-    components : []
-  } ),
-  actions : {
+export const useCommonDataStore = defineStore('commonData', {
+  state: () => ({
+    priorities: [],
+    workTypes: [],
+    categories: [],
+    productionLines: [],
+    equipmentGroups: [],
+    equipments: [],
+    components: [],
+  }),
+  actions: {
     async fetchPriorities() {
       const { data } = await getAllPriorities()
       this.priorities = data.data
@@ -29,6 +29,6 @@ export const useCommonDataStore = defineStore( 'commonData', {
     async fetchProductionLines() {
       const { data } = await getAllProductionLines()
       this.productionLines = data.data
-    }
-  }
-} )
+    },
+  },
+})

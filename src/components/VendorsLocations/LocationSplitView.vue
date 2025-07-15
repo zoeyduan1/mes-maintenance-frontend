@@ -24,15 +24,15 @@ import LocationList from './LocationList.vue'
 import LocationDetail from './LocationDetail.vue'
 
 // Data: vendor locations
-const locations = ref( [] )
+const locations = ref([])
 
-onMounted( async() => {
-  const res = await axios.get( 'http://10.10.12.12:8085/location' )
+onMounted(async () => {
+  const res = await axios.get('http://10.10.12.12:8085/location')
   locations.value = res.data?.data || []
-} )
+})
 
 // Selected location state
-const selected = ref( null )
+const selected = ref(null)
 
 // Method: set selected item
 const selectLocation = loc => {
