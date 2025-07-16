@@ -28,9 +28,27 @@
         <el-descriptions title="Images"></el-descriptions>
         <Images :images="location.image_path" />
       </div>
-      <div v-if="equipmentList?.length">
+      <div v-if="equipmentList?.length" style="margin-bottom: 48px">
         <el-descriptions title="Related Equipment"></el-descriptions>
-        <SearchTable :equipmentList="equipmentList" />
+        <SearchTable
+          :data="equipmentList"
+          :columns="[
+            { label: 'Name', prop: 'name' },
+            { label: 'Code', prop: 'code' },
+            { label: 'Group', prop: 'equipment_group' },
+          ]"
+        />
+      </div>
+      <div v-if="sparePartsBatchList?.length">
+        <el-descriptions title="Related Parts Batches"></el-descriptions>
+        <SearchTable
+          :data="sparePartsBatchList"
+          :columns="[
+            { label: 'Name', prop: 'name' },
+            { label: 'Part Code', prop: 'code' },
+            { label: 'Quantity', prop: 'quantity' },
+          ]"
+        />
       </div>
     </div>
   </el-card>
@@ -59,10 +77,23 @@ const fetchEquipment = async id => {
   }
 }
 
+const sparePartsBatchList = ref( [] )
+
+const fetchsparePartsBatch = async id => {
+  try {
+    const res = await axios.get( `http://10.10.12.12:8085/location/correlative-spare-part-batch/${id}` )
+    sparePartsBatchList.value = res.data?.data || []
+  } catch ( err ) {
+    console.error( 'Failed to fetch spare parts batch:', err )
+    equipmentList.value = []
+  }
+}
+
 watch(
   () => props.location?.id,
   id => {
     if ( id ) fetchEquipment( id )
+    if ( id ) fetchsparePartsBatch( id )
   },
   { immediate : true }
 )
