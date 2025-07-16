@@ -13,7 +13,6 @@
       >
         <div class="font-semibold">{{ item.name }}</div>
         <div class="text-sm text-gray-600">{{ item.address }}</div>
-        <div class="text-xs text-gray-400 mt-1">Type: {{ item.type }}</div>
       </el-card>
     </el-scrollbar>
 
