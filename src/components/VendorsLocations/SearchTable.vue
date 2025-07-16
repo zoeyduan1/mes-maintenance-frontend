@@ -1,11 +1,20 @@
 <template>
-  <el-table height="240" :data="filteredEquipment" style="width: 100%">
-    <el-table-column label="Name" prop="name" />
-    <el-table-column label="Code" prop="code" />
-    <el-table-column label="Group" prop="equipment_group" />
-    <el-table-column align="right">
+  <el-table height="240" :data="filteredData" style="width: 100%">
+    <el-table-column
+        v-for="col in columns"
+        :key="col.prop"
+        :label="col.label"
+        :prop="col.prop"
+    />
+    <!-- Optional search column -->
+    <el-table-column v-if="enableSearch" align="right">
       <template #header>
-        <el-input v-model="search" size="default" placeholder="Search" />
+        <el-input
+            v-model="search"
+            size="default"
+            placeholder="Search"
+            clearable
+        />
       </template>
     </el-table-column>
   </el-table>
@@ -15,23 +24,30 @@
 import { ref, computed, defineProps } from 'vue'
 
 const props = defineProps( {
-  equipmentList : {
+  data : {
     type : Array,
     default : () => []
+  },
+  columns : {
+    type : Array,
+    default : () => []
+  },
+  enableSearch : {
+    type : Boolean,
+    default : true
   }
 } )
 
 const search = ref( '' )
 
-const filteredEquipment = computed( () =>
-  props.equipmentList.filter( e => {
-    const query = search.value.toLowerCase()
-    return (
-      !query ||
-      Object.values( e ).some( val =>
+// Automatically expose search value to parent if needed via emit, or manage internally
+const filteredData = computed( () => {
+  const query = search.value.toLowerCase()
+  return props.data.filter( row =>
+    !query ||
+      Object.values( row ).some( val =>
         String( val ).toLowerCase().includes( query )
       )
-    )
-  } )
-)
+  )
+} )
 </script>
