@@ -1,10 +1,6 @@
 <template>
   <div>
-    <el-table
-      height="240"
-      :data="paginatedData"
-      style="width: 100%"
-    >
+    <el-table height="240" :data="paginatedData" style="width: 100%">
       <el-table-column label="Name" prop="name" />
       <el-table-column label="Code" prop="code" />
       <el-table-column label="Serial" prop="serial_number" />
@@ -44,9 +40,7 @@ const currentPage = ref( 1 )
 const pageSize = ref( 5 )
 
 const filteredEquipment = computed( () =>
-  props.equipmentList.filter( e =>
-    !search.value || e.name.toLowerCase().includes( search.value.toLowerCase() )
-  )
+  props.equipmentList.filter( e => !search.value || e.name.toLowerCase().includes( search.value.toLowerCase() ) )
 )
 
 const paginatedData = computed( () => {
