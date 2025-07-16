@@ -355,49 +355,49 @@ import { getAllWorkOrders, getWorkOrdersByRecurrence } from '@/api/workorder'
 import { convertToLocalTime } from '../../utils/datetime'
 import { getPriorityColor, getWorkTypeTagType, getCategoryTagType, getRecurrenceTagType } from '@/utils/general'
 
-const tableHeight = ref(window.innerHeight - 300)
-const expandedRows = ref(new Set())
+const tableHeight = ref( window.innerHeight - 300 )
+const expandedRows = ref( new Set() )
 
 const updateTableHeight = () => {
   tableHeight.value = window.innerHeight - 300
 }
 
 const handleView = row => {
-  router.push({ name: 'ViewWorkOrder', params: { id: row.id } })
+  router.push( { name : 'ViewWorkOrder', params : { id : row.id }} )
 }
 
-const getRowClass = ({ row }) => {
-  return expandedRows.value.has(row.id) ? 'expanded-highlight' : ''
+const getRowClass = ( { row } ) => {
+  return expandedRows.value.has( row.id ) ? 'expanded-highlight' : ''
 }
 
-const toggleRowHighlight = (row, expanded) => {
-  if (expanded) {
-    expandedRows.value.add(row.id)
-    if (row.children) {
-      row.children.forEach(child => expandedRows.value.add(child.id))
+const toggleRowHighlight = ( row, expanded ) => {
+  if ( expanded ) {
+    expandedRows.value.add( row.id )
+    if ( row.children ) {
+      row.children.forEach( child => expandedRows.value.add( child.id ) )
     }
   } else {
-    expandedRows.value.delete(row.id)
-    if (row.children) {
-      row.children.forEach(child => expandedRows.value.delete(child.id))
+    expandedRows.value.delete( row.id )
+    if ( row.children ) {
+      row.children.forEach( child => expandedRows.value.delete( child.id ) )
     }
   }
 }
 
-onMounted(() => {
-  window.addEventListener('resize', updateTableHeight)
-})
+onMounted( () => {
+  window.addEventListener( 'resize', updateTableHeight )
+} )
 
-onBeforeUnmount(() => {
-  window.removeEventListener('resize', updateTableHeight)
-})
+onBeforeUnmount( () => {
+  window.removeEventListener( 'resize', updateTableHeight )
+} )
 
-const calendarTypeOptions = ref([
-  { key: 'CN', display_name: 'China' },
-  { key: 'US', display_name: 'USA' },
-  { key: 'JP', display_name: 'Japan' },
-  { key: 'EU', display_name: 'Eurozone' },
-])
+const calendarTypeOptions = ref( [
+  { key : 'CN', display_name : 'China' },
+  { key : 'US', display_name : 'USA' },
+  { key : 'JP', display_name : 'Japan' },
+  { key : 'EU', display_name : 'Eurozone' }
+] )
 // const calendarTypeKeyValue = calendarTypeOptions.value.reduce( ( acc, cur ) => {
 //   acc[cur.key] = cur.display_name
 //   return acc
@@ -415,84 +415,84 @@ const handleCurrentChange = val => {
   getList() // 重新加载数据
 }
 
-const loadChildren = async (row, treeNode, resolve) => {
+const loadChildren = async( row, treeNode, resolve ) => {
   try {
     const recurrenceId = row.recurrence_uuid
-    if (!recurrenceId) return resolve([])
+    if ( !recurrenceId ) return resolve( [] )
 
-    const response = await getWorkOrdersByRecurrence(recurrenceId)
+    const response = await getWorkOrdersByRecurrence( recurrenceId )
     let children = response.data.data.content
 
     // ✅ 避免把自己加载为子项
-    children = children.filter(child => child.id !== row.id)
+    children = children.filter( child => child.id !== row.id )
 
     row.children = children
     resolve(
-      children.map(child => ({
+      children.map( child => ( {
         ...child,
-        hasChildren: false, // 如果还会再嵌套才设 true
-      }))
+        hasChildren : false // 如果还会再嵌套才设 true
+      } ) )
     )
-  } catch (err) {
-    console.error('Error loading children:', err)
-    resolve([])
+  } catch ( err ) {
+    console.error( 'Error loading children:', err )
+    resolve( [] )
   }
 }
 
-const dataForm = ref(null)
-const total = ref(0)
-const list = ref(null)
-const listLoading = ref(true)
+const dataForm = ref( null )
+const total = ref( 0 )
+const list = ref( null )
+const listLoading = ref( true )
 
-const importanceOptions = ref([1, 2, 3])
+const importanceOptions = ref( [1, 2, 3] )
 
-const sortOptions = ref([
+const sortOptions = ref( [
   {
-    label: 'ID 升序',
-    key: '+id',
+    label : 'ID 升序',
+    key : '+id'
   },
   {
-    label: 'ID 降序',
-    key: '-id',
-  },
-])
-const statusOptions = ref(['published', 'draft', 'deleted'])
+    label : 'ID 降序',
+    key : '-id'
+  }
+] )
+const statusOptions = ref( ['published', 'draft', 'deleted'] )
 // const showReviewer = ref( false )
-const dialogFormVisible = ref(false)
-const dialogStatus = ref('')
-const dialogPvVisible = ref(false)
-const pvData = ref([])
-const downloadLoading = ref(false)
+const dialogFormVisible = ref( false )
+const dialogStatus = ref( '' )
+const dialogPvVisible = ref( false )
+const pvData = ref( [] )
+const downloadLoading = ref( false )
 
-const set = reactive({
-  listQuery: {
-    page: 1,
-    limit: 20,
-    importance: undefined,
-    title: undefined,
-    type: undefined,
-    sort: '-id',
+const set = reactive( {
+  listQuery : {
+    page : 1,
+    limit : 20,
+    importance : undefined,
+    title : undefined,
+    type : undefined,
+    sort : '-id'
   },
-  temp: {
-    id: undefined,
-    importance: 1,
-    remark: '',
-    timestamp: new Date(),
-    title: '',
-    type: '',
-    status: 'published',
-    author: 'vite element admin',
+  temp : {
+    id : undefined,
+    importance : 1,
+    remark : '',
+    timestamp : new Date(),
+    title : '',
+    type : '',
+    status : 'published',
+    author : 'vite element admin'
   },
-  textMap: {
-    update: 'Edit',
-    create: 'Create',
+  textMap : {
+    update : 'Edit',
+    create : 'Create'
   },
-  rules: {
-    type: [{ required: true, message: 'type is required', trigger: 'change' }],
-    timestamp: [{ type: 'date', required: true, message: 'timestamp is required', trigger: 'change' }],
-    title: [{ required: true, message: 'title is required', trigger: 'blur' }],
-  },
-})
+  rules : {
+    type : [{ required : true, message : 'type is required', trigger : 'change' }],
+    timestamp : [{ type : 'date', required : true, message : 'timestamp is required', trigger : 'change' }],
+    title : [{ required : true, message : 'title is required', trigger : 'blur' }]
+  }
+} )
 
 const hideDialog = () => {
   dialogFormVisible.value = false
@@ -518,24 +518,24 @@ const hideDialogPv = () => {
 //   }, 1.5 * 1000 )
 // }
 
-const getList = async () => {
+const getList = async() => {
   listLoading.value = true
   list.value = null
 
   try {
-    const response = await getAllWorkOrders(set.listQuery.page, set.listQuery.limit)
+    const response = await getAllWorkOrders( set.listQuery.page, set.listQuery.limit )
     const data = response.data.data.content
     total.value = response.data.data.totalElements
 
     // Conditionally add `children` if recurrence_type.id !== 1
-    list.value = data.map(item => {
-      if (item.recurrence_type?.id !== 1) {
-        return { ...item, children: null, hasChildren: true } // 加上 hasChildren 就会有小箭头了
+    list.value = data.map( item => {
+      if ( item.recurrence_type?.id !== 1 ) {
+        return { ...item, children : null, hasChildren : true } // 加上 hasChildren 就会有小箭头了
       }
       return item
-    })
-  } catch (error) {
-    console.error('Failed to fetch data:', error)
+    } )
+  } catch ( error ) {
+    console.error( 'Failed to fetch data:', error )
   } finally {
     listLoading.value = false
   }
@@ -590,69 +590,69 @@ const handleFilter = () => {
 // }
 
 const handleCreate = () => {
-  router.push({ name: 'NewWorkOrder' })
+  router.push( { name : 'NewWorkOrder' } )
 }
 
 const createData = () => {
   dataForm.value &&
-    dataForm.value.validate(valid => {
-      if (valid) {
-        set.temp.id = parseInt(Math.random() * 100) + 1024 // generate a temporary id
+    dataForm.value.validate( valid => {
+      if ( valid ) {
+        set.temp.id = parseInt( Math.random() * 100 ) + 1024 // generate a temporary id
         set.temp.author = 'vite element admin'
-        createArticle(unref(set.temp)).then(() => {
-          list.value.unshift(unref(set.temp))
+        createArticle( unref( set.temp ) ).then( () => {
+          list.value.unshift( unref( set.temp ) )
           hideDialog()
-          ElNotification({
-            title: 'Success',
-            message: 'Created Successfully',
-            type: 'success',
-            duration: 2000,
-          })
-        })
+          ElNotification( {
+            title : 'Success',
+            message : 'Created Successfully',
+            type : 'success',
+            duration : 2000
+          } )
+        } )
       }
-    })
+    } )
 }
 
 const handleUpdate = row => {
-  set.temp = Object.assign({}, row) // copy obj
-  set.temp.timestamp = new Date(set.temp.timestamp)
+  set.temp = Object.assign( {}, row ) // copy obj
+  set.temp.timestamp = new Date( set.temp.timestamp )
   dialogStatus.value = 'update'
   dialogFormVisible.value = true
-  nextTick(() => {
+  nextTick( () => {
     dataForm.value && dataForm.value.clearValidate()
-  })
+  } )
 }
 
 const updateData = () => {
-  dataForm.value?.validate(valid => {
-    if (valid) {
+  dataForm.value?.validate( valid => {
+    if ( valid ) {
       const tempData = {
-        ...set.temp,
+        ...set.temp
         // timestamp : +new Date( tempData.timestamp )
       }
-      updateArticle(tempData).then(() => {
-        const index = list.value.findIndex(v => v.id === set.temp.id)
-        list.value.splice(index, 1, set.temp)
+      updateArticle( tempData ).then( () => {
+        const index = list.value.findIndex( v => v.id === set.temp.id )
+        list.value.splice( index, 1, set.temp )
         hideDialog()
-        ElNotification({
-          title: 'Success',
-          message: 'Update Successfully',
-          type: 'success',
-          duration: 2000,
-        })
-      })
+        ElNotification( {
+          title : 'Success',
+          message : 'Update Successfully',
+          type : 'success',
+          duration : 2000
+        } )
+      } )
     }
-  })
+  } )
 }
 
-const handleDelete = (row, index) => {
-  ElNotification({
-    title: 'Success',
-    message: 'Delete Successfully',
-    type: 'success',
-    duration: 2000,
-  })
-  list.value.splice(index, 1)
+const handleDelete = ( row, index ) => {
+  ElNotification( {
+    title : 'Success',
+    message : 'Delete Successfully',
+    type : 'success',
+    duration : 2000
+  } )
+  list.value.splice( index, 1 )
 }
 
 // const handleFetchPv = pv => {
@@ -664,28 +664,28 @@ const handleDelete = (row, index) => {
 
 const handleDownload = () => {
   downloadLoading.value = true
-  import('@/vendor/Export2Excel').then(excel => {
+  import( '@/vendor/Export2Excel' ).then( excel => {
     const tHeader = ['timestamp', 'title', 'type', 'importance', 'status']
     const filterVal = ['timestamp', 'title', 'type', 'importance', 'status']
-    const data = formatJson(filterVal)
-    excel.export_json_to_excel({
-      header: tHeader,
+    const data = formatJson( filterVal )
+    excel.export_json_to_excel( {
+      header : tHeader,
       data,
-      filename: 'table-list',
-    })
+      filename : 'table-list'
+    } )
     downloadLoading.value = false
-  })
+  } )
 }
 
 const formatJson = filterVal => {
-  return list.value.map(v =>
-    filterVal.map(j => {
-      if (j === 'timestamp') {
-        return parseTime(v[j])
+  return list.value.map( v =>
+    filterVal.map( j => {
+      if ( j === 'timestamp' ) {
+        return parseTime( v[j] )
       } else {
         return v[j]
       }
-    })
+    } )
   )
 }
 
@@ -696,9 +696,9 @@ const formatJson = filterVal => {
 
 getList()
 
-defineOptions({
-  name: 'ComplexTable',
-})
+defineOptions( {
+  name : 'ComplexTable'
+} )
 </script>
 
 <style scoped lang="scss">

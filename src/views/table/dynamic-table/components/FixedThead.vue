@@ -32,31 +32,31 @@
 import { ref, watch } from 'vue'
 const defaultFormThead = ['apple', 'banana']
 
-const tableData = ref([
+const tableData = ref( [
   {
-    name: 'fruit-1',
-    apple: 'apple-10',
-    banana: 'banana-10',
-    orange: 'orange-10',
+    name : 'fruit-1',
+    apple : 'apple-10',
+    banana : 'banana-10',
+    orange : 'orange-10'
   },
   {
-    name: 'fruit-2',
-    apple: 'apple-20',
-    banana: 'banana-20',
-    orange: 'orange-20',
-  },
-])
-const key = ref(1)
-const formTheadOptions = ref(['apple', 'banana', 'orange'])
-const checkboxVal = ref(defaultFormThead)
-const formThead = ref(defaultFormThead)
+    name : 'fruit-2',
+    apple : 'apple-20',
+    banana : 'banana-20',
+    orange : 'orange-20'
+  }
+] )
+const key = ref( 1 )
+const formTheadOptions = ref( ['apple', 'banana', 'orange'] )
+const checkboxVal = ref( defaultFormThead )
+const formThead = ref( defaultFormThead )
 
-watch(checkboxVal, valArr => {
-  formThead.value = formTheadOptions.value.filter(i => valArr.indexOf(i) >= 0)
+watch( checkboxVal, valArr => {
+  formThead.value = formTheadOptions.value.filter( i => valArr.indexOf( i ) >= 0 )
   key.value = key.value + 1
-})
+} )
 
-defineOptions({
-  name: 'FixedThead',
-})
+defineOptions( {
+  name : 'FixedThead'
+} )
 </script>

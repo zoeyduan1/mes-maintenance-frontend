@@ -31,28 +31,28 @@
 <script setup>
 import { ref, watch } from 'vue'
 
-const tableData = ref([
+const tableData = ref( [
   {
-    name: 'fruit-1',
-    apple: 'apple-10',
-    banana: 'banana-10',
-    orange: 'orange-10',
+    name : 'fruit-1',
+    apple : 'apple-10',
+    banana : 'banana-10',
+    orange : 'orange-10'
   },
   {
-    name: 'fruit-2',
-    apple: 'apple-20',
-    banana: 'banana-20',
-    orange: 'orange-20',
-  },
-])
-const key = ref(1)
-const formThead = ref(['apple', 'banana'])
+    name : 'fruit-2',
+    apple : 'apple-20',
+    banana : 'banana-20',
+    orange : 'orange-20'
+  }
+] )
+const key = ref( 1 )
+const formThead = ref( ['apple', 'banana'] )
 
-watch(formThead, () => {
+watch( formThead, () => {
   key.value = key.value + 1
-})
+} )
 
-defineOptions({
-  name: 'UnfixedThead',
-})
+defineOptions( {
+  name : 'UnfixedThead'
+} )
 </script>

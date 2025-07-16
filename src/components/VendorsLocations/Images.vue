@@ -20,10 +20,10 @@
 </template>
 
 <script setup>
-defineProps({
-  images: {
-    type: Array,
-    default: () => [],
-  },
-})
+defineProps( {
+  images : {
+    type : Array,
+    default : () => []
+  }
+} )
 </script>

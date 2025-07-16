@@ -3,10 +3,11 @@
     <template #header>
       <div class="el-card__header">
         <span class="el-card__title">{{ location.name }}</span>
-        <div class="button-group">
-          <el-button type="primary" :icon="Edit" circle @click="editLocation = true" />
-          <el-button type="danger" :icon="Delete" circle />
-        </div>
+        <el-button-group class="ml-4" size="medium">
+          <el-button type="primary" :icon="Edit" @click="editLocation = true"/>
+          <el-button type="primary" :icon="Share" />
+          <el-button type="primary" :icon="Delete" />
+        </el-button-group>
       </div>
     </template>
 
@@ -39,7 +40,7 @@
 import { ref, watch } from 'vue'
 import axios from 'axios'
 import SearchTable from '@/components/VendorsLocations/SearchTable.vue'
-import { Edit, Delete } from '@element-plus/icons-vue'
+import { Delete, Edit, Share } from '@element-plus/icons-vue'
 import Images from './Images.vue'
 
 const props = defineProps( {
@@ -80,12 +81,8 @@ const blockMargin = 'margin-bottom: 32px'
   font-size: 18px;
   font-weight: bold;
 }
-.button-group {
-  display: flex;
-  gap: 8px;
-}
 .descriptions-container {
-  max-width: 800px;
+  max-width: 1200px;
   width: 100%;
   margin-left: 0;
 }

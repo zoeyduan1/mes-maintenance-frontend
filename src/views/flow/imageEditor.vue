@@ -33,9 +33,9 @@ const editor = ref()
 //   uploadImg()
 // }
 
-defineOptions({
-  name: 'ImageEditor',
-})
+defineOptions( {
+  name : 'ImageEditor'
+} )
 </script>
 
 <style>

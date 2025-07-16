@@ -16,9 +16,9 @@ import YuLayout from '@/components/YuLayout'
 // import LogicFlow from '@logicflow/core'
 // import "@logicflow/core/dist/style/index.css"
 
-defineOptions({
-  name: 'LogicFlow',
-})
+defineOptions( {
+  name : 'LogicFlow'
+} )
 </script>
 
 <style scoped lang="scss">

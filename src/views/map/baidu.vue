@@ -26,32 +26,32 @@ import YuLayout from '@/components/YuLayout'
 const container = ref()
 const ak = 'ov7zC5g8Ac0ScLPp1zG8TZDuiGfty9Hh'
 
-onMounted(() => {
-  nextTick(() => {
-    baiduMap(ak)
-      .then(() => {
+onMounted( () => {
+  nextTick( () => {
+    baiduMap( ak )
+      .then( () => {
         // eslint-disable-next-line no-undef
-        const map = new BMap.Map(container.value)
+        const map = new BMap.Map( container.value )
 
         // eslint-disable-next-line no-undef
-        map.centerAndZoom(new BMap.Point(116.404, 39.915), 11)
+        map.centerAndZoom( new BMap.Point( 116.404, 39.915 ), 11 )
 
         map.addControl(
           // eslint-disable-next-line no-undef
-          new BMap.MapTypeControl({
+          new BMap.MapTypeControl( {
             // eslint-disable-next-line no-undef
-            mapTypes: [BMAP_NORMAL_MAP, BMAP_HYBRID_MAP],
-          })
+            mapTypes : [BMAP_NORMAL_MAP, BMAP_HYBRID_MAP]
+          } )
         )
 
-        map.setCurrentCity('北京')
-        map.enableScrollWheelZoom(true)
-      })
-      .catch(err => {
-        console.log('err', err)
-      })
-  })
-})
+        map.setCurrentCity( '北京' )
+        map.enableScrollWheelZoom( true )
+      } )
+      .catch( err => {
+        console.log( 'err', err )
+      } )
+  } )
+} )
 </script>
 
 <style lang="scss" scoped>

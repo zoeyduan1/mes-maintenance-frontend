@@ -117,78 +117,78 @@ import Sortable from 'sortablejs'
 import YuLayout from '@/components/YuLayout'
 import { isNullAndUnDef } from '@/utils/validate'
 
-const dragTable = ref(null)
-const dragVxeTable = ref(null)
-const list = ref(null)
-const total = ref(null)
-const listLoading = ref(true)
-const listQuery = reactive({
-  page: 1,
-  limit: 10,
-})
-const sortable = shallowRef(null)
-const oldList = ref([])
-const newList = ref([])
+const dragTable = ref( null )
+const dragVxeTable = ref( null )
+const list = ref( null )
+const total = ref( null )
+const listLoading = ref( true )
+const listQuery = reactive( {
+  page : 1,
+  limit : 10
+} )
+const sortable = shallowRef( null )
+const oldList = ref( [] )
+const newList = ref( [] )
 
-const sortableVxe = shallowRef(null)
+const sortableVxe = shallowRef( null )
 
-const getList = async () => {
+const getList = async() => {
   listLoading.value = true
-  const { data } = await getArticle(listQuery)
+  const { data } = await getArticle( listQuery )
   list.value = data.items
   total.value = data.total
   listLoading.value = false
-  oldList.value = list.value.map(v => v.id)
+  oldList.value = list.value.map( v => v.id )
   newList.value = oldList.value.slice()
-  nextTick(() => {
+  nextTick( () => {
     setSort()
-  })
+  } )
 }
 
 const statusFilter = status => {
   const statusMap = {
-    published: 'success',
-    draft: 'info',
-    deleted: 'danger',
+    published : 'success',
+    draft : 'info',
+    deleted : 'danger'
   }
   return statusMap[status]
 }
 
 const setSort = () => {
-  const el = dragTable.value.$el.querySelectorAll('.el-table__inner-wrapper .el-table__body-wrapper table > tbody')[0]
+  const el = dragTable.value.$el.querySelectorAll( '.el-table__inner-wrapper .el-table__body-wrapper table > tbody' )[0]
   const vxeEl = dragVxeTable.value.$el.querySelectorAll(
     '.vxe-table--main-wrapper .vxe-table--body-wrapper table > tbody'
   )[0]
 
   const options = {
-    ghostClass: 'sortable-ghost', // Class name for the drop placeholder,
-    setData: function (dataTransfer) {
+    ghostClass : 'sortable-ghost', // Class name for the drop placeholder,
+    setData : function( dataTransfer ) {
       // to avoid Firefox bug
       // Detail see : https://github.com/RubaXa/Sortable/issues/1012
-      dataTransfer.setData('Text', '')
+      dataTransfer.setData( 'Text', '' )
     },
-    onEnd: evt => {
+    onEnd : evt => {
       const { oldIndex, newIndex } = evt
-      if (isNullAndUnDef(oldIndex) || isNullAndUnDef(newIndex) || oldIndex === newIndex) {
+      if ( isNullAndUnDef( oldIndex ) || isNullAndUnDef( newIndex ) || oldIndex === newIndex ) {
         return
       }
-      const targetRow = list.value.splice(oldIndex, 1)[0]
-      list.value.splice(newIndex, 0, targetRow)
+      const targetRow = list.value.splice( oldIndex, 1 )[0]
+      list.value.splice( newIndex, 0, targetRow )
 
-      const tempIndex = newList.value.splice(oldIndex, 1)[0]
-      newList.value.splice(newIndex, 0, tempIndex)
-    },
+      const tempIndex = newList.value.splice( oldIndex, 1 )[0]
+      newList.value.splice( newIndex, 0, tempIndex )
+    }
   }
 
-  sortable.value = Sortable.create(el, options)
-  sortableVxe.value = Sortable.create(vxeEl, options)
+  sortable.value = Sortable.create( el, options )
+  sortableVxe.value = Sortable.create( vxeEl, options )
 }
 
 getList()
 
-defineOptions({
-  name: 'DragTable',
-})
+defineOptions( {
+  name : 'DragTable'
+} )
 </script>
 
 <style>

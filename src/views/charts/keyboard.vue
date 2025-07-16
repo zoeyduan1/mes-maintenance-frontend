@@ -6,9 +6,9 @@
 
 <script setup>
 import Keyboard from './components/Keyboard'
-defineOptions({
-  name: 'Keyboard',
-})
+defineOptions( {
+  name : 'Keyboard'
+} )
 </script>
 
 <style scoped>

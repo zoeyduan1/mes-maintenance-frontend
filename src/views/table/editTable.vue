@@ -148,60 +148,60 @@ import { getArticle } from '@/api/article'
 import YuLayout from '@/components/YuLayout'
 import { ElMessage } from 'element-plus'
 
-const list = ref(null)
-const listLoading = ref(true)
-const listQuery = reactive({
-  page: 1,
-  limit: 10,
-})
+const list = ref( null )
+const listLoading = ref( true )
+const listQuery = reactive( {
+  page : 1,
+  limit : 10
+} )
 
 const statusFilter = status => {
   const statusMap = {
-    published: 'success',
-    draft: 'info',
-    deleted: 'danger',
+    published : 'success',
+    draft : 'info',
+    deleted : 'danger'
   }
   return statusMap[status]
 }
 
-const getList = async () => {
+const getList = async() => {
   listLoading.value = true
-  const { data } = await getArticle(listQuery)
+  const { data } = await getArticle( listQuery )
   const items = data.items
 
-  list.value = items.map(v => {
+  list.value = items.map( v => {
     return {
       ...v,
-      edit: false,
-      originalTitle: v.title,
+      edit : false,
+      originalTitle : v.title
     }
-  })
+  } )
   listLoading.value = false
 }
 
 const cancelEdit = row => {
   row.title = row.originalTitle
   row.edit = false
-  ElMessage({
-    message: 'The title has been restored to the original value',
-    type: 'warning',
-  })
+  ElMessage( {
+    message : 'The title has been restored to the original value',
+    type : 'warning'
+  } )
 }
 
 const confirmEdit = row => {
   row.edit = false
   row.originalTitle = row.title
-  ElMessage({
-    message: 'The title has been edited',
-    type: 'success',
-  })
+  ElMessage( {
+    message : 'The title has been edited',
+    type : 'success'
+  } )
 }
 
 getList()
 
-defineOptions({
-  name: 'EditTable',
-})
+defineOptions( {
+  name : 'EditTable'
+} )
 </script>
 
 <style scoped>

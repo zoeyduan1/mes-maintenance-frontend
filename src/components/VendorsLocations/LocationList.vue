@@ -35,21 +35,21 @@ import { ref, computed } from 'vue'
 import { ElCard, ElScrollbar, ElPagination } from 'element-plus'
 
 // Use props as a reactive object (do NOT destructure to avoid reactivity loss)
-const props = defineProps({
-  locations: {
-    type: Array,
-    required: true,
+const props = defineProps( {
+  locations : {
+    type : Array,
+    required : true
   },
-  selected: Object,
-})
+  selected : Object
+} )
 
-defineEmits(['select'])
+defineEmits( ['select'] )
 
-const currentPage = ref(1)
+const currentPage = ref( 1 )
 const pageSize = 5
 
-const paginatedItems = computed(() =>
-  props.locations.slice((currentPage.value - 1) * pageSize, currentPage.value * pageSize)
+const paginatedItems = computed( () =>
+  props.locations.slice( ( currentPage.value - 1 ) * pageSize, currentPage.value * pageSize )
 )
 </script>
 

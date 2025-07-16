@@ -6,9 +6,9 @@
 
 <script setup>
 import LineMarker from './components/LineMarker'
-defineOptions({
-  name: 'LineCharts',
-})
+defineOptions( {
+  name : 'LineCharts'
+} )
 </script>
 
 <style scoped>

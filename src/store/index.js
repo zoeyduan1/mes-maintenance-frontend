@@ -7,8 +7,8 @@ import usePermissionStore from './modules/permission'
 
 const store = createPinia()
 
-export function registerStore(app) {
-  app.use(store)
+export function registerStore( app ) {
+  app.use( store )
 }
 
 export { useUserStore, useTagsViewStore, useAppStore, useSettingsStore, usePermissionStore }

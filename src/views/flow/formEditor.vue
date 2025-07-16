@@ -2,7 +2,10 @@
   <YuLayout title="LogicFlow">
     <template #head>
       表单编辑器 vue-form-create2。
-      <el-link type="primary" href="https://www.npmjs.com/package/vue-form-create2" target="_blank" :underline="false"
+      <el-link type="primary"
+href="https://www.npmjs.com/package/vue-form-create2"
+target="_blank"
+:underline="false"
         >点我查看更多</el-link
       >
     </template>
@@ -46,16 +49,16 @@ import { ElDesignForm, ElGenerateForm } from 'vue-form-create2'
 //   ElGenerateForm
 // } from 'vue-form-create'
 
-const loading = ref(true)
-onBeforeMount(() => {
-  loader.loadJS('https://unpkg.com/ace-builds/src-noconflict/ace.js').then(() => {
+const loading = ref( true )
+onBeforeMount( () => {
+  loader.loadJS( 'https://unpkg.com/ace-builds/src-noconflict/ace.js' ).then( () => {
     loading.value = false
-  })
-})
+  } )
+} )
 
-defineOptions({
-  name: 'FormEditor',
-})
+defineOptions( {
+  name : 'FormEditor'
+} )
 </script>
 
 <style scoped lang="scss">
