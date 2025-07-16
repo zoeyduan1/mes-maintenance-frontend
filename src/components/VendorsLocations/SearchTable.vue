@@ -1,5 +1,5 @@
 <template>
-  <el-table height="240" :data="filteredData" style="width: 100%"   empty-text="No data found">
+  <el-table height="240" :data="filteredData" style="width: 100%" empty-text="No data found">
     <el-table-column v-for="col in columns" :key="col.prop" :label="col.label" :prop="col.prop" />
     <!-- Optional search column -->
     <el-table-column v-if="enableSearch" align="right">
