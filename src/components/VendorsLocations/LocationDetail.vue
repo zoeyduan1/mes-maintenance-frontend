@@ -3,7 +3,7 @@
     <template #header>
       <div class="el-card__header">
         <span class="el-card__title">{{ location.name }}</span>
-        <el-button-group class="ml-4" size="medium">
+        <el-button-group class="ml-4" size="default">
           <el-button type="primary" :icon="Edit" @click="editLocation = true" />
           <el-button type="primary" :icon="Share" />
           <el-button type="primary" :icon="Delete" />
