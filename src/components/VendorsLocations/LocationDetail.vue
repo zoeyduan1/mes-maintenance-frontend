@@ -118,44 +118,44 @@ import SearchTable from '@/components/VendorsLocations/SearchTable.vue'
 import { Delete, Edit, Share } from '@element-plus/icons-vue'
 import Images from './Images.vue'
 
-const props = defineProps({
-  location: Object,
-})
+const props = defineProps( {
+  location : Object
+} )
 
-const editLocation = ref(false)
-const editForm = ref({})
+const editLocation = ref( false )
+const editForm = ref( {} )
 
 // Create a copy of the location when entering edit mode
 const enterEditMode = () => {
-  editForm.value = JSON.parse(JSON.stringify(props.location))
+  editForm.value = JSON.parse( JSON.stringify( props.location ) )
   editLocation.value = true
 }
 
 const saveEdit = () => {
-  console.log('Saving edited form:', editForm.value)
+  console.log( 'Saving edited form:', editForm.value )
   // TODO: send to API or emit event
   editLocation.value = false
 }
 
-const equipmentList = ref([])
-const sparePartsBatchList = ref([])
+const equipmentList = ref( [] )
+const sparePartsBatchList = ref( [] )
 
 const fetchEquipment = async id => {
   try {
-    const res = await axios.get(`http://10.10.12.12:8085/location/correlative-equipment/${id}`)
+    const res = await axios.get( `http://10.10.12.12:8085/location/correlative-equipment/${id}` )
     equipmentList.value = res.data?.data || []
-  } catch (err) {
-    console.error('Failed to fetch equipment:', err)
+  } catch ( err ) {
+    console.error( 'Failed to fetch equipment:', err )
     equipmentList.value = []
   }
 }
 
 const fetchsparePartsBatch = async id => {
   try {
-    const res = await axios.get(`http://10.10.12.12:8085/location/correlative-spare-part-batch/${id}`)
+    const res = await axios.get( `http://10.10.12.12:8085/location/correlative-spare-part-batch/${id}` )
     sparePartsBatchList.value = res.data?.data || []
-  } catch (err) {
-    console.error('Failed to fetch spare parts batch:', err)
+  } catch ( err ) {
+    console.error( 'Failed to fetch spare parts batch:', err )
     sparePartsBatchList.value = []
   }
 }
@@ -163,12 +163,12 @@ const fetchsparePartsBatch = async id => {
 watch(
   () => props.location?.id,
   id => {
-    if (id) {
-      fetchEquipment(id)
-      fetchsparePartsBatch(id)
+    if ( id ) {
+      fetchEquipment( id )
+      fetchsparePartsBatch( id )
     }
   },
-  { immediate: true }
+  { immediate : true }
 )
 
 const blockMargin = 'margin-bottom: 32px'

@@ -3,17 +3,24 @@
     <h3 class="text-lg font-bold mb-4">Vendors & Locations</h3>
 
     <!-- Scrollable list of cards -->
-    <el-scrollbar height="calc(100vh - 160px)">
-      <el-card
-        v-for="(item, index) in paginatedItems"
-        :key="index"
-        class="mb-3 cursor-pointer hover:shadow-md"
-        :class="{ 'border-blue-500 border-2': props.selected?.name === item.name }"
-        @click="$emit('select', item)"
-      >
-        <div class="font-semibold">{{ item.name }}</div>
-        <div class="text-sm text-gray-600">{{ item.address }}</div>
-      </el-card>
+    <el-scrollbar height="calc(100vh - 200px)">
+      <template v-if="paginatedItems.length">
+        <el-card
+          v-for="item in paginatedItems"
+          :key="item.id || item.name"
+          class="mb-3 cursor-pointer hover:shadow-md focus:outline-none"
+          :class="{ 'border-blue-500 border-2': props.selected?.name === item.name }"
+          role="button"
+          tabindex="0"
+          @click="$emit('select', item)"
+          @keyup.enter="$emit('select', item)"
+        >
+          <div>{{ item.name }}</div>
+        </el-card>
+      </template>
+      <template v-else>
+        <div class="text-gray-500 text-center mt-8">No locations found.</div>
+      </template>
     </el-scrollbar>
 
     <!-- Pagination controls -->
@@ -30,10 +37,10 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { ElCard, ElScrollbar, ElPagination } from 'element-plus'
 
-// Use props as a reactive object (do NOT destructure to avoid reactivity loss)
+// Props
 const props = defineProps( {
   locations : {
     type : Array,
@@ -50,10 +57,28 @@ const pageSize = 5
 const paginatedItems = computed( () =>
   props.locations.slice( ( currentPage.value - 1 ) * pageSize, currentPage.value * pageSize )
 )
+
+// Reset pagination when location list changes
+watch( () => props.locations, () => {
+  currentPage.value = 1
+} )
 </script>
 
 <style scoped>
 .el-card {
-  transition: box-shadow 0.2s ease;
+  min-height: 80px; /* Or adjust as needed */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Vertically center content */
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.el-card:focus {
+  outline: none;
+  background-color: #f0f9ff;   /* Very light blue */
+}
+
+.border-left-color-blue-500 {
+  border-left-color: #3b82f6 !important;
 }
 </style>
